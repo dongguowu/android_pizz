@@ -1,8 +1,5 @@
 package ca.dongguo.pizza;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +7,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Person person;
     Pizza pizza;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         initialize();
     }
 
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         emailText.setText("email@email.com");
         phoneText.setText("514813");
 
-        pizzaSize.check(((RadioButton)findViewById(R.id.medium_size)).getId());
-        pizzaType.check(((RadioButton)findViewById(R.id.deluxe)).getId());
+        pizzaSize.check(((RadioButton) findViewById(R.id.medium_size)).getId());
+        pizzaType.check(((RadioButton) findViewById(R.id.deluxe)).getId());
 
     }
 
@@ -72,20 +72,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v == addOrder) {
-            String size = getTextFromRadioGroup(pizzaSize);
-            String type = getTextFromRadioGroup(pizzaType);
-            pizza = new Pizza(size, type);
-
-            String email = emailText.getText().toString();
-            String name = nameText.getText().toString();
-            String phone = phoneText.getText().toString();
-
-            person = new Person(name, email,  Integer.parseInt(phone), pizza);
-            System.out.println(person);
+        if (v == addOrder) {
+            Person person = createOrder();
+            customerList.add(person);
+            customerList.forEach((c) -> System.out.println(c));
             return;
         }
 
+    }
+
+    private Person createOrder() {
+        String size = getTextFromRadioGroup(pizzaSize);
+        String type = getTextFromRadioGroup(pizzaType);
+        pizza = new Pizza(size, type);
+
+        String email = emailText.getText().toString();
+        String name = nameText.getText().toString();
+        String phone = phoneText.getText().toString();
+
+        person = new Person(name, email, Integer.parseInt(phone), pizza);
+        return person;
     }
 
     @NonNull
