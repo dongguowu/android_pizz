@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -72,8 +73,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String name = nameText.getText().toString();
             String phone = phoneText.getText().toString();
 
-            String size = pizzaSize.toString();
-            String type = pizzaType.toString();
+            int checkedRadioButtonId = pizzaSize.getCheckedRadioButtonId();
+            RadioButton checkedRadioButton = findViewById(checkedRadioButtonId);
+            String size = checkedRadioButton.getText().toString();
+
+            checkedRadioButtonId = pizzaType.getCheckedRadioButtonId();
+            checkedRadioButton = findViewById(checkedRadioButtonId);
+            String type = checkedRadioButton.getText().toString();
             pizza = new Pizza(size, type);
             person = new Person(name, email,  Integer.parseInt(phone), pizza);
             return;
