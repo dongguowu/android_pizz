@@ -1,5 +1,6 @@
 package ca.dongguo.pizza;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         emailText.setText("email@email.com");
         phoneText.setText("514813");
 
+        pizzaSize.check(((RadioButton)findViewById(R.id.medium_size)).getId());
+        pizzaType.check(((RadioButton)findViewById(R.id.deluxe)).getId());
+
     }
 
     private void initializeData(ArrayList<Person> list) {
@@ -69,21 +73,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == addOrder) {
+            String size = getTextFromRadioGroup(pizzaSize);
+            String type = getTextFromRadioGroup(pizzaType);
+            pizza = new Pizza(size, type);
+
             String email = emailText.getText().toString();
             String name = nameText.getText().toString();
             String phone = phoneText.getText().toString();
 
-            int checkedRadioButtonId = pizzaSize.getCheckedRadioButtonId();
-            RadioButton checkedRadioButton = findViewById(checkedRadioButtonId);
-            String size = checkedRadioButton.getText().toString();
-
-            checkedRadioButtonId = pizzaType.getCheckedRadioButtonId();
-            checkedRadioButton = findViewById(checkedRadioButtonId);
-            String type = checkedRadioButton.getText().toString();
-            pizza = new Pizza(size, type);
             person = new Person(name, email,  Integer.parseInt(phone), pizza);
+            System.out.println(person);
             return;
         }
 
+    }
+
+    @NonNull
+    private String getTextFromRadioGroup(RadioGroup group) {
+        int checkedRadioButtonId = group.getCheckedRadioButtonId();
+        RadioButton checkedRadioButton = findViewById(checkedRadioButtonId);
+        String text = checkedRadioButton.getText().toString();
+        return text;
     }
 }
