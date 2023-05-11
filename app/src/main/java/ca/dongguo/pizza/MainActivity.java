@@ -1,5 +1,6 @@
 package ca.dongguo.pizza;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -77,6 +79,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             customerList.add(person);
             customerList.forEach((c) -> System.out.println(c));
             return;
+        }
+        if(v == showOrder) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("bundleExtra", customerList);
+
+            intent.putExtra("intentExtra", bundle);
+            startActivity(intent);
+
         }
 
     }
