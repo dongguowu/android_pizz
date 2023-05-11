@@ -1,6 +1,5 @@
 package ca.dongguo.pizza;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<Person> customerList;
     Button sortByNameBtn, clearSortBtn, searchPizzaBtn;
     RadioGroup searchGroup;
+    boolean isSorted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +30,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         initialize();
         customerList = initializeCustomerList();
         refreshView(customerList);
-        initializeSeach();
+        initializeSearch();
     }
 
-    private void initializeSeach() {
-        searchGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String searchStr = (String) ((RadioButton)findViewById(checkedId)).getText();
-                ArrayList<Person> filteredList = customerList.stream()
-                        .filter(u -> u.getPizza().getType().compareTo(searchStr) == 0)
-                        .collect(Collectors.toCollection(ArrayList::new));
-                refreshView(filteredList);
-
-            }
+    private void initializeSearch() {
+        searchGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String searchStr = (String) ((RadioButton) findViewById(checkedId)).getText();
+            ArrayList<Person> filteredList = customerList.stream()
+                    .filter(u -> u.getPizza().getType().compareTo(searchStr) == 0)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            refreshView(filteredList);
         });
     }
 
@@ -52,8 +48,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private ArrayList<Person> initializeCustomerList() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("intentExtra");
+        Bundle bundle = getIntent().getBundleExtra("intentExtra");
         Serializable bundledListOfStudents = bundle.getSerializable("bundleExtra");
 
         return (ArrayList<Person>) bundledListOfStudents;
@@ -75,7 +70,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v == sortByNameBtn) {
-            customerList.sort(Comparator.comparing(Person::getName));
+            if (isSorted) {
+                customerList.sort(Comparator.comparing(Person::getName).reversed());
+                isSorted = false;
+            } else {
+                customerList.sort(Comparator.comparing(Person::getName));
+                isSorted = true;
+            }
         }
         refreshView(customerList);
     }
