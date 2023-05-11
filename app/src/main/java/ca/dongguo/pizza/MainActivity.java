@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @NonNull
-    private String getTextFromRadioGroup(RadioGroup group) {
+    public String getTextFromRadioGroup(RadioGroup group) {
         int checkedRadioButtonId = group.getCheckedRadioButtonId();
         RadioButton checkedRadioButton = findViewById(checkedRadioButtonId);
         String text = checkedRadioButton.getText().toString();
