@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -48,10 +47,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private ArrayList<Person> initializeCustomerList() {
-        Bundle bundle = getIntent().getBundleExtra("intentExtra");
-        Serializable bundledListOfStudents = bundle.getSerializable("bundleExtra");
-
-        return (ArrayList<Person>) bundledListOfStudents;
+        return (ArrayList<Person>) getIntent().getBundleExtra("intentExtra").getSerializable("bundleExtra");
     }
 
     private void initialize() {

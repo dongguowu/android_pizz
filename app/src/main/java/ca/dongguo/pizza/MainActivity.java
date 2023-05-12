@@ -74,21 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == addOrder) {
-            Person person = createOrder();
-            customerList.add(person);
-            customerList.forEach((c) -> System.out.println(c));
+            customerList.add(createOrder());
             return;
         }
         if (v == showOrder) {
-            Intent intent = new Intent(this, ProfileActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("bundleExtra", customerList);
 
+            Intent intent = new Intent(this, ProfileActivity.class);
             intent.putExtra("intentExtra", bundle);
             startActivity(intent);
-
         }
-
     }
 
     private Person createOrder() {

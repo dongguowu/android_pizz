@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    tools:context=".WithdrawActivity">
+    <TextView
+        android:id="@+id/withdraw_textView_title"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:textSize="30sp"
+        android:text="@string/withdraw_textView_title" />
+
+    <TextView
+        android:id="@+id/withdraw_textView_balanceValue"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="500.00" />
+    <EditText
+        android:id="@+id/withdraw_editText_withdrawValue"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:hint="Enter the amount"/>
+    <Button
+    android:id="@+id/withdraw_btn_withdraw"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:textSize="22sp"
+    android:text="Withdraw"
+    android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/withdraw_btn_showAll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="22sp"
+        android:text="Back List"
+        android:textAllCaps="false"/>
+</LinearLayout>
